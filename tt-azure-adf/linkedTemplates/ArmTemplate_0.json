@@ -1,0 +1,297 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "tt-azure-adf"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Wait1",
+						"type": "Wait",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"waitTimeInSeconds": 1
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "3f4fe850-b64e-4e99-92d6-d88c8a1d1b8b.csv",
+						"container": "test"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "BillingAccountId",
+						"type": "String"
+					},
+					{
+						"name": "BillingAccountName",
+						"type": "String"
+					},
+					{
+						"name": "BillingPeriodStartDate",
+						"type": "String"
+					},
+					{
+						"name": "BillingPeriodEndDate",
+						"type": "String"
+					},
+					{
+						"name": "BillingProfileId",
+						"type": "String"
+					},
+					{
+						"name": "BillingProfileName",
+						"type": "String"
+					},
+					{
+						"name": "AccountOwnerId",
+						"type": "String"
+					},
+					{
+						"name": "AccountName",
+						"type": "String"
+					},
+					{
+						"name": "SubscriptionId",
+						"type": "String"
+					},
+					{
+						"name": "SubscriptionName",
+						"type": "String"
+					},
+					{
+						"name": "Date",
+						"type": "String"
+					},
+					{
+						"name": "Product",
+						"type": "String"
+					},
+					{
+						"name": "PartNumber",
+						"type": "String"
+					},
+					{
+						"name": "MeterId",
+						"type": "String"
+					},
+					{
+						"name": "ServiceFamily",
+						"type": "String"
+					},
+					{
+						"name": "MeterCategory",
+						"type": "String"
+					},
+					{
+						"name": "MeterSubcategory",
+						"type": "String"
+					},
+					{
+						"name": "MeterRegion",
+						"type": "String"
+					},
+					{
+						"name": "MeterName",
+						"type": "String"
+					},
+					{
+						"name": "Quantity",
+						"type": "String"
+					},
+					{
+						"name": "EffectivePrice",
+						"type": "String"
+					},
+					{
+						"name": "Cost",
+						"type": "String"
+					},
+					{
+						"name": "UnitPrice",
+						"type": "String"
+					},
+					{
+						"name": "BillingCurrency",
+						"type": "String"
+					},
+					{
+						"name": "ResourceLocation",
+						"type": "String"
+					},
+					{
+						"name": "AvailabilityZone",
+						"type": "String"
+					},
+					{
+						"name": "ConsumedService",
+						"type": "String"
+					},
+					{
+						"name": "ResourceId",
+						"type": "String"
+					},
+					{
+						"name": "ResourceName",
+						"type": "String"
+					},
+					{
+						"name": "ServiceInfo1",
+						"type": "String"
+					},
+					{
+						"name": "ServiceInfo2",
+						"type": "String"
+					},
+					{
+						"name": "AdditionalInfo",
+						"type": "String"
+					},
+					{
+						"name": "Tags",
+						"type": "String"
+					},
+					{
+						"name": "InvoiceSectionId",
+						"type": "String"
+					},
+					{
+						"name": "InvoiceSection",
+						"type": "String"
+					},
+					{
+						"name": "CostCenter",
+						"type": "String"
+					},
+					{
+						"name": "UnitOfMeasure",
+						"type": "String"
+					},
+					{
+						"name": "ResourceGroup",
+						"type": "String"
+					},
+					{
+						"name": "ReservationId",
+						"type": "String"
+					},
+					{
+						"name": "ReservationName",
+						"type": "String"
+					},
+					{
+						"name": "ProductOrderId",
+						"type": "String"
+					},
+					{
+						"name": "ProductOrderName",
+						"type": "String"
+					},
+					{
+						"name": "OfferId",
+						"type": "String"
+					},
+					{
+						"name": "IsAzureCreditEligible",
+						"type": "String"
+					},
+					{
+						"name": "Term",
+						"type": "String"
+					},
+					{
+						"name": "PublisherName",
+						"type": "String"
+					},
+					{
+						"name": "PlanName",
+						"type": "String"
+					},
+					{
+						"name": "ChargeType",
+						"type": "String"
+					},
+					{
+						"name": "Frequency",
+						"type": "String"
+					},
+					{
+						"name": "PublisherType",
+						"type": "String"
+					},
+					{
+						"name": "PricingModel",
+						"type": "String"
+					},
+					{
+						"name": "PayGPrice",
+						"type": "String"
+					},
+					{
+						"name": "InvoiceID",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		}
+	]
+}
