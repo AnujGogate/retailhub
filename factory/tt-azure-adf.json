@@ -1,0 +1,9 @@
+{
+	"name": "tt-azure-adf",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "e47aa26c-49cd-4122-8263-d8c09f179f8d",
+		"tenantId": "f4e5dfc0-2ccb-452c-a279-cb48cc862f13"
+	}
+}
